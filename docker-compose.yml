@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  surrealdb:
+    env_file:
+      - .env
+    image: surrealdb/surrealdb:latest
+    container_name: $CONTAINER_NAME
+    restart: always
+    entrypoint:
+      - /surreal
+      - start
+      - -A
+      - --auth
+      - --user
+      - $DB_USER
+      - --pass
+      - $DB_PASS
+    ports:
+      - $DB_PORT:8000
+
+    volumes:
+      - ./data/database.db:/database.db
