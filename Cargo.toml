@@ -1,0 +1,11 @@
+[package]
+name = "use_surreal"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dotenvy = "0.15.7"
+serde = "1.0.204"
+surrealdb = "1.5.4"
+thiserror = "1.0.62"
+tokio = { version = "1.38.0", features = ["rt-multi-thread", "macros"] }
