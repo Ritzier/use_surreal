@@ -7,6 +7,7 @@ services:
     image: surrealdb/surrealdb:latest
     container_name: $CONTAINER_NAME
     restart: always
+    # command: start -A --auth --user root --pass root file:/database.db
     entrypoint:
       - /surreal
       - start
@@ -16,8 +17,9 @@ services:
       - $DB_USER
       - --pass
       - $DB_PASS
+      - file:/database.db
     ports:
       - $DB_PORT:8000
 
     volumes:
-      - ./data/database.db:/database.db
+      - ./database/database.db:/database.db
