@@ -46,13 +46,14 @@ Options:
 ### `sql` command:
 
 ```sh
-surreal sql --endpoint memory --username --password root --ns namespace --db database --pretty
+surreal sql --endpoint memory --username root --password root --ns namespace --db database --pretty
 ```
 
 connect with specific ip:port:
 
 ```sh
-surreal sql --ws://127.0.0.1:8000
+surreal sql --endpoint ws://127.0.0.1:8000 --username root --password root
+--ns namespace --db database --pretty
 ```
 
 usage: `surreal sql [OPTIONS]`
