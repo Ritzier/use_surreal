@@ -6,21 +6,27 @@ Surrealdb provide a amazing dashboard user interface for their database called
 Surreallist
 
 SurrealDB offers an mazing dashboard user interface for its database
-[Surrealist]("https://surrealdb.com/surrealist")
+[Surrealist](https://surrealdb.com/surrealist)
 
 ## Resources
 
-- Official Website: [SurrealDB]("https://surrealdb.com")
+- Official Website: [SurrealDB](https://surrealdb.com)
 - Github Repository:
-  [surrealdb/surrealdb]("https://github.com/surrealdb/surrealdb")
-- Docker Repository: [surrealdb/surrealdb]("https://hub.docker.com/surrealdb/surrealdb")
+  [surrealdb/surrealdb](https://github.com/surrealdb/surrealdb)
+- Docker Repository: [surrealdb/surrealdb](https://hub.docker.com/surrealdb/surrealdb)
 
 ## Getting Started
 
 ### `start` command:
 
-```
+```sh
 surreal start memory -A --auth --user root --pass root --bind 127.0.0.1:8080
+```
+
+Based on disk
+
+```sh
+surreal start file:database/database.db
 ```
 
 usage: `surreal start [OPTIONS] [PATH]`
@@ -39,7 +45,15 @@ Options:
 
 ### `sql` command:
 
-`surreal sql --endpoint memory --username --password root --ns namespace --db database --pretty`
+```sh
+surreal sql --endpoint memory --username --password root --ns namespace --db database --pretty
+```
+
+connect with specific ip:port:
+
+```sh
+surreal sql --ws://127.0.0.1:8000
+```
 
 usage: `surreal sql [OPTIONS]`
 
@@ -55,15 +69,20 @@ options:
 
 ## Run using Docker
 
-Start database:
+Start database in Docker and store the database data in disk:
 
-`docker run --rm --pull always --name surrealdb -p 8000:8000
-surrealdb/surrealdb:lastest start --log trace --user root --pass root`
+```sh
+docker run --rm --pull always --user $(id -u) -v $(pwd)/database:/database --name surrealdb -p 8000:8000 \
+surrealdb/surrealdb:latest start --log trace --auth --user root --pass root \
+file:/database/mydb.db
+```
 
 Connect database:
 
-`docker ru n--it <container_name> /surreal sql -e ws://localhost:8000 -u root -p
-root --ns namespace --db database --pretty`
+```sh
+surreal sql --endpoint ws://localhost:8000 -u root -p root --ns test --db test
+--pretty
+```
 
 ## Run using Docker Compose
 
