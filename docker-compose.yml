@@ -1,5 +1,4 @@
 version: "3"
-
 services:
   surrealdb:
     env_file:
@@ -12,14 +11,16 @@ services:
       - /surreal
       - start
       - -A
-      - --auth
       - --user
       - $DB_USER
       - --pass
       - $DB_PASS
-      - file:/database.db
+      - surrealkv:/data/${DB_NAME}
     ports:
       - $DB_PORT:8000
-
     volumes:
-      - ./database/database.db:/database.db
+      - volume:/data
+volumes:
+  volume:
+    name: ${DB_PATH}
+    external: true
